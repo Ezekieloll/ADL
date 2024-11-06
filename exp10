@@ -1,0 +1,16 @@
+import json
+import boto3 #python sdk used for aws used for create ,delete aws services using python
+
+s3=boto3.client('s3')
+
+def lambda_handler(event,context):
+    bucket='grinalbucket'
+    dataToUpload = {}
+    dataToUpload['PID'] = '277'
+    dataToUpload['DEPT'] = 'INFT'
+    dataToUpload['NAME'] = 'GRINAL'
+    dataToUpload['FILE'] = 'ABC_111'
+    fileName = 'ABC_111' + '.json'
+    uploadByteStream= bytes(json.dumps(dataToUpload).encode('UTF-8'))
+    s3.put_object(Bucket=bucket,Key=fileName,Body=uploadByteStream)
+    print('object has been uploaded')
